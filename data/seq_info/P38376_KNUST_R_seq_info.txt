@@ -1,0 +1,21 @@
+Project: P38376_KNUST_R
+Project directory: P:\Data\10.08.25\P38376_KNUST_R\
+Number of Reads: 13; Average quality: 36.3
+Trim quality value (window=20, threshold): 20
+Number of HQ reads: 9; Average quality: 52.4; Average length: 688
+
+                                     Read   Read Read   Trim   Trim
+Name                                 Length HQ   Q Ave. Length Q Ave.
+02A_9_3A_Abrewabewo_MeaGPL1-R        1366   41   10.1   0      0
+02B_11_12A_Nkentema_MeaGPL1-R        1412   25   9.88   0      0
+02C_12_13A_Ampenkyene_MeaGPL1-R      1370   65   10.3   0      0
+04E_36_14A_AdomanoRed_AhDreb-R       1295   745  37     752    60.7
+04F_37_15A_AdomanoWhie_AhDreb-R      1374   712  33.1   706    59.8
+04G_38_16A_Adomanooff-white_AhDreb-R 1320   691  33.9   695    59.1
+04H_40_14A_AdomanoRed_MIPSV-R        459    1    0.42   0      0
+05A_41_15A_AdomanoWhie_MIPSV-R       1335   752  26.9   734    40.2
+05B_42_16A_Adomanooff-white_MIPSV-R  1381   608  23.1   569    40.8
+05C_43_SN_SN_MIPSV-R                 1342   636  25.1   686    39.2
+11E_105_5A_Ahenewa_MeaGPL1-R         1367   676  31.9   664    54.3
+11F_106_12A_Nkentema_MeaGPL1-R       1379   685  31.7   662    55.4
+11G_107_13A_Ampenkyene_MeaGPL1-R     1406   717  36.3   721    61.9

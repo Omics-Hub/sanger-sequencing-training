@@ -1,0 +1,17 @@
+S/N	Name	Primer	Gene	Trait	Read Length (bp)	Read HQ	Read Q. average	Trim length (bp)	Trim Q.Average
+1	05A_41_15A_AdomanoWhie_M2-F	M2-F/MIPSV-R	Myo-Inositol-3-Phosphate Synthase	Phytic acid	1340	801	29.1	802	41.9
+2	05B_42_16A_Adomanooff-white_M2-F				1343	739	29.6	749	45.1
+3	Snake Tomato				1888	11	8.89	0	0
+4	11F_106_12A_Nkentema_MeaGPL1-F	MeaGPL1	Cyanogenic glycosides	Phosphatidylinositol kinases (PIKs)	1330	878	39.8	926	52
+5	11G_107_13A_Ampenkyene_MeaGPL1-F				1354	722	35.5	705	58.2
+6	11E_105_5A_Ahenewa_MeaGPL1-R				1367	676	31.9	664	54.3
+7	Snake Tomato				1477	56	10.2	0	0
+8	02G_18_4A_Local_Ph-3-F	Ph-3	Ph-3 Resistance Gene	late blight resistance	1050	357	21.6	352	63
+9	02H_19_7A_Adwoa_Ph-3-F				1361	353	16.6	355	62.5
+10	03A_20_8A_Peto_Ph-3-F				1362	354	16.4	345	62.9
+11	Snake Tomato				1405	2	0.698	0	0
+12	09A_78_8A_Peto_Ty-3Caps-F	Ty-3Caps	Ty-3	Tomato yellow leaf curl virus resistance	1300	741	36.7	742	63.2
+13	09B_79_9A_RhinoPower_Ty-3Caps-F				1401	701	34.1	706	59
+14	Snake Tomato				1201	730	39.5	715	61.6
+15	Snake Tomato	AiNAC3	NAC	"regulating stress responses, including drought, and developmental processes"	1397	53	10.2	0	0
+								470.7333333	41.58

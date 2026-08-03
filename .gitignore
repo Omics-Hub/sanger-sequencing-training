@@ -1,0 +1,7 @@
+venv/
+__pycache__/
+*.pyc
+*_trace.png
+*_trimmed.fasta
+*_consensus.fasta
+.DS_Store
