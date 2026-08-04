@@ -5,7 +5,6 @@
 </p>
 
 <p align="center"><sub>
-Logos used per each organisation's brand guidelines.
 </sub></p>
 
 ---
