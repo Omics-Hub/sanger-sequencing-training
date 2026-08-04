@@ -1,9 +1,11 @@
 <p align="center">
-  <img src="assets/logos/company-of-biologists.png" alt="The Company of Biologists" width="260">
+  <img src="assets/images/CoB_logo.jpg" alt="The Company of Biologists" width="220">
+  &nbsp;&nbsp;&nbsp;
+  <img src="assets/images/csir_logo-original.png" alt="CSIR" width="220">
 </p>
 
 <p align="center"><sub>
-Logo artwork not included in this deliverable — place the official logo file at <code>assets/logos/company-of-biologists.png</code> per their brand guidelines (see <code>assets/logos/README.md</code>).
+Logos used per each organisation's brand guidelines.
 </sub></p>
 
 ---
@@ -23,7 +25,7 @@ A hands-on training module covering the full path from PCR product to verified g
 |---|---|---|
 | **1. From PCR to Sequence Data** | 30 min | PCR → sequencing workflow, PCR QC/purification, overview of sequencing output files |
 | **2. Principles of Sanger Sequencing** | 1.5 hrs | Chain-termination chemistry, dye terminators, capillary electrophoresis, base calling, F/R reads, quality factors |
-| **3. Hands-on Sequence Analysis & Guided Practice** | 3 hrs | Instructor demo + guided participant exercise: open chromatograms, assess quality, trim, build consensus, BLAST, align, troubleshoot |
+| **3. Hands-on Sequence Analysis & Guided Practice** | 2 hrs | Instructor demo + guided participant exercise: open chromatograms, assess quality, trim, build consensus, BLAST; alignment/tree building as optional extension |
 
 Full session-by-session facilitator guides live in [`docs/`](docs/):
 
@@ -101,8 +103,7 @@ sanger-sequencing-training/
 │   ├── raw_ab1/                  ← 14 real .ab1 chromatogram files (test data)
 │   └── seq_info/                 ← vendor QC summary reports (metadata worked example)
 └── assets/
-    ├── images/                   ← figures used in this README
-    └── logos/                    ← organizational branding (see assets/logos/README.md)
+    └── images/                   ← figures and organizational logos used in this README
 ```
 
 > This training uses **no scripts and no programming**. Everything is done through BioEdit, a web browser (BLASTn, iTOL), and MEGA — all point-and-click.
@@ -231,7 +232,9 @@ Comparing overlapping F and R reads cross-validates base calls, extends usable h
 ---
 
 # Session 3 – Hands-On Sequence Analysis
-*(3 hrs: instructor demo + guided participant exercise)*
+*(2 hrs: instructor demo + guided participant exercise)*
+
+> **Time note:** Given the 2-hour session, live time is focused on 3a–3c (chromatogram QC, BioEdit trimming/consensus, BLASTn confirmation). Sections 3d (MEGA alignment) and 3e (iTOL tree) are provided as a take-home extension for participants who want to go further.
 
 ## 3a. Chromatogram Quality Assessment
 
@@ -304,6 +307,7 @@ A low-identity or low-coverage top hit doesn't always mean sequencing failed —
 ---
 
 ## 3d. Alignment & Variant Detection in MEGA
+*(Optional extension — take-home if time doesn't allow live coverage)*
 
 1. **Import sequences** — `Align → Edit/Build Alignment → Create a new alignment`; import your consensus FASTA plus a reference (e.g., top BLASTn hit, or other samples targeting the same gene).
 2. **Run alignment** — select all sequences, `Alignment → Align by ClustalW` (or MUSCLE), default parameters.
@@ -313,6 +317,7 @@ A low-identity or low-coverage top hit doesn't always mean sequencing failed —
 ---
 
 ## 3e. Tree Visualization with iTOL
+*(Optional extension — take-home if time doesn't allow live coverage)*
 
 1. Confirm your Newick tree file from 3d is saved locally.
 2. Go to the iTOL website and **Upload** the tree file.
@@ -391,7 +396,7 @@ Facilitators circulate to support participants individually during this exercise
 
 # Acknowledgements / Attribution
 
-Test data and QC reports provided for training purposes as part of this programme. Logos to be added per each organisation's brand guidelines — see [`assets/logos/README.md`](assets/logos/README.md).
+Test data and QC reports provided for training purposes as part of this programme. Company of Biologists and CSIR logos used per each organisation's brand guidelines.
 
 ---
 
