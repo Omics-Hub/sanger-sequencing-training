@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hands-On Protocol: BioEdit → NCBI BLASTn → MEGA → iTOL</title>
+<style>
+  :root {
+    --ink: #1f2933;
+    --muted: #52606d;
+    --accent: #0a6e5c;
+    --accent-soft: #e6f4f1;
+    --border: #d9e2ec;
+    --code-bg: #f4f7f6;
+    --warn-bg: #fff8e6;
+    --warn-border: #f0c36d;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    background: #ffffff;
+    line-height: 1.65;
+  }
+  .wrap {
+    max-width: 840px;
+    margin: 0 auto;
+    padding: 48px 24px 96px;
+  }
+  h1 {
+    font-size: 1.9rem;
+    line-height: 1.25;
+    margin: 0 0 8px;
+    color: var(--ink);
+  }
+  h2 {
+    font-size: 1.35rem;
+    margin: 2.4em 0 0.6em;
+    padding-bottom: 0.35em;
+    border-bottom: 2px solid var(--accent-soft);
+    color: var(--accent);
+  }
+  h3 {
+    font-size: 1.05rem;
+    margin: 1.6em 0 0.5em;
+    color: var(--ink);
+  }
+  p { margin: 0.7em 0; color: var(--ink); }
+  strong { color: var(--ink); }
+  a { color: var(--accent); }
+  hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2.2em 0;
+  }
+  code {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.12em 0.4em;
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.88em;
+    color: #14453d;
+  }
+  ol, ul {
+    padding-left: 1.4em;
+  }
+  li {
+    margin: 0.55em 0;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1em 0 1.4em;
+    font-size: 0.95rem;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 8px 12px;
+    text-align: left;
+  }
+  th {
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-weight: 600;
+  }
+  tr:nth-child(even) td {
+    background: #fafcfb;
+  }
+  .subtitle {
+    color: var(--muted);
+    font-size: 1rem;
+    margin: 0 0 1.6em;
+  }
+  .badge-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 2em;
+  }
+  .badge {
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+  .checkpoint {
+    background: var(--accent-soft);
+    border-left: 4px solid var(--accent);
+    padding: 10px 16px;
+    margin: 1.2em 0;
+    border-radius: 4px;
+  }
+  .checkpoint strong { color: var(--accent); }
+  @media print {
+    body { font-size: 12pt; }
+    .wrap { max-width: 100%; padding: 0 12px; }
+    h2 { break-after: avoid; }
+    li, tr { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="badge-row">
+  <span class="badge">Sanger Sequencing Training</span>
+  <span class="badge">GUI-Only Workflow</span>
+  <span class="badge">No Programming Required</span>
+</div>
+<h1 id="hands-on-protocol-bioedit-ncbi-blastn-mega-itol">Hands-On
+Protocol: BioEdit → NCBI BLASTn → MEGA → iTOL</h1>
+<p class="subtitle">A step-by-step lab protocol for taking a raw <code>.ab1</code> chromatogram all the way through to an annotated phylogenetic tree.</p>
+<p><strong>Assumes:</strong> BioEdit, FinchTV, MEGA installed; internet
+access for NCBI BLASTn and iTOL.</p>
+<hr />
+<h2 id="part-1-bioedit-trim-assemble-export-fasta">Part 1 — BioEdit:
+Trim, Assemble, Export FASTA</h2>
+<ol type="1">
+<li><strong>Open both reads</strong> — <code>File → Open</code>, load
+your F and R <code>.ab1</code> files.</li>
+<li><strong>Check quality in FinchTV first</strong> (see previous
+quality-reading steps) — note the approximate trim points where Phred
+scores consistently clear Q20.</li>
+<li><strong>In BioEdit, trim each read</strong> — mask/delete the noisy
+5′ start and declining 3′ tail, using your FinchTV-confirmed trim points
+and the vendor <code>seq_info.txt</code> trim length as a
+cross-check.</li>
+<li><strong>Reverse complement the R read</strong> —
+<code>Sequence → Nucleic Acid → Reverse Complement</code>, so both reads
+face the same direction.</li>
+<li><strong>Assemble a consensus</strong> — select both trimmed reads →
+<code>Accessory Application → CAP Contig Assembly Program</code> (or
+your BioEdit version’s equivalent contig assembly tool). Where F and R
+disagree at a position, open both chromatograms and check the actual
+peaks before accepting a base.</li>
+<li><strong>Export the consensus</strong> —
+<code>File → Export → Nucleic Acid</code> (or copy from the alignment
+window) → save as FASTA, named clearly per sample (e.g.,
+<code>1_AhDreb_consensus.fasta</code>).</li>
+</ol>
+<div class="checkpoint"><p><strong>Checkpoint:</strong> you should now have one clean, single
+FASTA file per sample, representing your best-confidence consensus
+sequence.</p></div>
+<hr />
+<h2 id="part-2-ncbi-blastn-confirm-identity-get-top-hits">Part 2 — NCBI
+BLASTn: Confirm Identity, Get Top Hits</h2>
+<ol type="1">
+<li><p>Go to the NCBI BLASTn web tool:
+<code>https://blast.ncbi.nlm.nih.gov/Blast.cgi</code> → select
+<strong>nucleotide blast</strong>.</p></li>
+<li><p><strong>Paste your consensus FASTA</strong> into the query box
+(or upload the <code>.fasta</code> file directly).</p></li>
+<li><p><strong>Choose your database</strong> — typically
+<code>Nucleotide collection (nr/nt)</code> for a broad identity check,
+or a more targeted database if your gene/species is known.</p></li>
+<li><p><strong>Set search parameters:</strong></p>
+<ul>
+<li>Under <strong>Algorithm parameters → General Parameters</strong>,
+set <strong>Max target sequences</strong> to control how many hits are
+returned (set to <strong>10</strong> for a manageable top-hit
+list).</li>
+<li>Under <strong>Max target sequences</strong> or the results filter,
+apply an <strong>E-value threshold of 1e-5</strong> — this keeps only
+statistically strong matches and filters out weak/spurious hits.</li>
+</ul></li>
+<li><p>Click <strong>BLAST</strong> and wait for results.</p></li>
+<li><p><strong>Interpret the hit table:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Metric</th>
+<th>What to look for</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Percent identity</td>
+<td>High (&gt;95–98%) for a confirmed match</td>
+</tr>
+<tr class="even">
+<td>Query coverage</td>
+<td>Should span most of the query</td>
+</tr>
+<tr class="odd">
+<td>E-value</td>
+<td>≤ 1e-5 (very low, near 0 is ideal)</td>
+</tr>
+<tr class="even">
+<td>Description</td>
+<td>Should match your expected gene/primer target</td>
+</tr>
+</tbody>
+</table></li>
+<li><p><strong>Download the top 10 hits as FASTA</strong> — on the
+results page, select the top 10 hits (checkboxes next to each), then
+<code>Download → FASTA (aligned sequences)</code> or
+<code>FASTA (complete sequence)</code>. Save this file (e.g.,
+<code>top10_blast_hits.fasta</code>).</p></li>
+<li><p><strong>Combine files for alignment</strong> — open both your own
+consensus FASTA and the downloaded top-10-hits FASTA in a text editor,
+and combine them into a single multi-FASTA file (e.g.,
+<code>alignment_input.fasta</code>). Your own sequence plus the top 10
+references is what MEGA will align next.</p></li>
+</ol>
+<div class="checkpoint"><p><strong>Checkpoint:</strong> you should now have one multi-FASTA file
+containing your sample + up to 10 closest BLAST matches.</p></div>
+<hr />
+<h2 id="part-3-mega-alignment-tree-and-pairwise-distance-matrix">Part 3
+— MEGA: Alignment, Tree, and Pairwise Distance Matrix</h2>
+<h3 id="a.-align-the-sequences">3a. Align the sequences</h3>
+<ol type="1">
+<li>Open MEGA →
+<code>Align → Edit/Build Alignment → Create a new alignment</code> →
+choose <strong>Nucleotide</strong>.</li>
+<li><code>Edit → Insert Sequence from File</code> (or drag-and-drop) →
+import your combined <code>alignment_input.fasta</code>.</li>
+<li>Select all sequences → <code>Alignment → Align by ClustalW</code>
+(or MUSCLE) → run with default parameters.</li>
+<li>Review the alignment window — trim any obviously misaligned ends if
+needed, then close and save the alignment (<code>.mas</code> or export
+as <code>.fasta</code>/<code>.meg</code>).</li>
+</ol>
+<h3 id="b.-build-a-phylogenetic-tree">3b. Build a phylogenetic tree</h3>
+<ol type="1">
+<li>From the aligned data, go to
+<code>Phylogeny → Construct/Test Neighbor-Joining Tree</code> (or
+Maximum Likelihood if you want a more rigorous tree and have time).</li>
+<li>Use default parameters unless your facilitator specifies otherwise
+(e.g., bootstrap replications — 500 or 1000 is standard for a quick
+confidence check).</li>
+<li>Run the analysis — MEGA will display the tree in a Tree Explorer
+window.</li>
+<li><strong>Export the tree in Newick format</strong> —
+<code>File → Export Current Tree (Newick)</code> from the Tree Explorer
+→ save as <code>.nwk</code> (e.g., <code>sample_tree.nwk</code>). This
+is the file iTOL needs.</li>
+</ol>
+<h3 id="c.-generate-a-pairwise-distance-matrix">3c. Generate a pairwise
+distance matrix</h3>
+<ol type="1">
+<li>With the same aligned data open, go to
+<code>Distance → Compute Pairwise Distances</code>.</li>
+<li>Choose a substitution model (e.g., <strong>p-distance</strong> for a
+simple, quick comparison, or <strong>Kimura 2-parameter</strong> for a
+more standard genetic-distance estimate).</li>
+<li>Run — MEGA displays a matrix of pairwise distances between every
+pair of sequences in your alignment.</li>
+<li><strong>Export the matrix</strong> —
+<code>File → Export Distance Data</code> (or copy from the results
+window) → save as a <code>.csv</code>/<code>.txt</code> file (e.g.,
+<code>pairwise_distance_matrix.csv</code>) or as a Word/Excel-exportable
+table if your report requires it.</li>
+</ol>
+<div class="checkpoint"><p><strong>Checkpoint:</strong> you should now have (1) a
+<code>.nwk</code> tree file and (2) a pairwise distance matrix file.</p></div>
+<hr />
+<h2 id="part-4-itol-visualize-and-annotate-the-tree">Part 4 — iTOL:
+Visualize and Annotate the Tree</h2>
+<ol type="1">
+<li>Go to the iTOL website: <code>https://itol.embl.de/</code>.</li>
+<li>Click <strong>Upload</strong> → select your
+<code>sample_tree.nwk</code> file.</li>
+<li>The tree renders automatically. Use the <strong>Basic</strong>
+controls on the right panel to:
+<ul>
+<li>Switch between circular/rectangular layout</li>
+<li>Adjust branch length display and font size</li>
+</ul></li>
+<li><strong>Rename leaf labels</strong> if needed — click a leaf label
+directly, or use <code>Advanced → Edit labels</code> to replace raw
+accession numbers/sample codes with meaningful names (e.g., your sample
+ID instead of a GenBank accession).</li>
+<li><strong>Add annotation datasets</strong> (optional but recommended
+for a polished figure) — under the <strong>Datasets</strong> panel, add
+a simple colored strip or symbol dataset (e.g., color-coding by primer,
+gene target, or sample origin) using a small tab-delimited annotation
+file per iTOL’s template format.</li>
+<li><strong>Export the final figure</strong> — <code>Export</code> (top
+menu) → choose SVG, PDF, or PNG depending on where the figure will be
+used (SVG/PDF for publication-quality, PNG for slides).</li>
+</ol>
+<div class="checkpoint"><p><strong>Checkpoint:</strong> a finished, annotated tree image ready
+for your final report.</p></div>
+<hr />
+<h2 id="summary-file-handoffs-between-tools">Summary: File Handoffs
+Between Tools</h2>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>From</th>
+<th>File produced</th>
+<th>To</th>
+<th>Used for</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>BioEdit</td>
+<td>Consensus <code>.fasta</code></td>
+<td>NCBI BLASTn</td>
+<td>Identity confirmation</td>
+</tr>
+<tr class="even">
+<td>NCBI BLASTn</td>
+<td>Top-10-hits <code>.fasta</code></td>
+<td>MEGA</td>
+<td>Alignment reference set</td>
+</tr>
+<tr class="odd">
+<td>MEGA</td>
+<td><code>.nwk</code> tree file</td>
+<td>iTOL</td>
+<td>Tree visualization</td>
+</tr>
+<tr class="even">
+<td>MEGA</td>
+<td>Pairwise distance matrix</td>
+<td>Final report</td>
+<td>Quantitative comparison</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</body>
+</html>
