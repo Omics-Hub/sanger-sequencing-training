@@ -5,3 +5,4 @@ __pycache__/
 *_trimmed.fasta
 *_consensus.fasta
 .DS_Store
+assets/
